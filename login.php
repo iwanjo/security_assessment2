@@ -1,5 +1,5 @@
 <?php
-    include('server.php')
+    include('header.php');
 ?>
 
 <!DOCTYPE html>
@@ -7,36 +7,28 @@
 <head>
   <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>ALU Library Registration</title>
+        <title>ALU Library Log In</title>
         <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="alu-full-logo.png" rel="icon" />
         <link rel="stylesheet" href="styleform.css">
 </head>
 <body>
+<a href='index.php'> 
 <img src="alu-full-logo.png" alt="African Leadership University Logo" class="logo">
+</a>
   <div class="header">
   	<h2>ALU Library</h2>
       <h2>Log In</h2>
   </div>
-  <form method="post" action="login.php">
-  	<?php include('errors.php'); ?>
+  <form method="post" action="login_action.php">
   	<div class="input-group">
   	  <label>Email</label>
-  	  <input type="email" name="email" value="<?php echo $email; ?>">
+  	  <input type="email" name="email" value="" required>
   	</div>
-	<div class="input-group">
-		<label>Role</label>
-        <select name="role">
-			<option value="keeper">Select role</option>
-            <option value="Librarian">Librarian</option>
-            <option value="Faculty">Faculty</option>
-            <option value="Student">Student</option>
-        </select>
-    </div>
   	<div class="input-group">
   	  <label>Password</label>
-  	  <input type="password" name="password_1">
+  	  <input type="password" name="password" required>
   	</div>
   	  <button type="submit" class="btn" name="logIn_user">Log In</button>
   	</div>
