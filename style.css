@@ -9,6 +9,7 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
+    padding: 2rem;
 }
 
 .container h3{
@@ -36,4 +37,51 @@
     color: #000;
     cursor: pointer;
 
+}
+
+.btn-basic{
+  background-color: #d00d2d;
+  color: #fff;
+  padding: .6rem 1rem;
+  border-radius: 4px;
+}
+
+.btn-basic:hover, .edit-btn:hover{
+  cursor: pointer;
+}
+
+.edit-btn{
+  background-color: #e79324;
+  color: #000;
+  padding: .6rem 1rem;
+  border-radius: 4px;
+
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+  
+li {
+  float: left;
+}
+  
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+  
+li a:hover {
+  background-color: #111;
+}
+
+.table-elements td{
+  padding: 1rem 2rem;
 }
