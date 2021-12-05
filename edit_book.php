@@ -18,7 +18,7 @@
 		
 		if ($query) {
             echo "<script>alert('Book has been updated successfully ');
-                        location.href ='admin.php';
+                        location.href ='librarian.php';
                         </script>";
         }
         else {

@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
 
     if ($query) {
         echo "<script>alert('New Book has been added ');
-					location.href ='admin.php';
+					location.href ='librarian.php';
 					</script>";
     }
     else {

@@ -74,7 +74,7 @@ li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 14px 0;
   text-decoration: none;
 }
   
@@ -84,4 +84,8 @@ li a:hover {
 
 .table-elements td{
   padding: 1rem 2rem;
+}
+
+.input-group{
+  margin: 2rem 0;
 }
