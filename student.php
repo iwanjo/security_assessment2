@@ -4,8 +4,32 @@ session_start();
 require 'includes/sanitize.php';
 
 include("header.php");
-include("connect.php"); 
+include("connect.php");
 
+if(isset($_POST['borrow'])){
+  $id = sanitize(trim($_POST['id']));
+  if(isset($_SESSION['login_user'])){
+      $result = mysqli_query($dbhandle, "INSERT INTO issue_books(email, BookID, Approve_Status, Issue_Date, Return_Date) values ('$_SESSION[login_user]', '$id', ' ', ' ', ' ');");
+      if($result===TRUE)
+        {
+            echo "<script>alert('Book borrowing request submitted!');
+            window.location='student.php';
+            </script>";
+        }      
+        else
+        {
+            echo"Sorry!Book could not be borrowed. Try again later!";
+        }
+
+  }
+  else {
+    ?>
+      <script type='text/javascript'>
+        alert("Kindly login first!")
+      </script>
+    <?php
+  }
+}
 
 ?>
 
@@ -27,6 +51,8 @@ include("connect.php");
   <div class="container">
     <div class="panel panel-default">
       <div class="panel-heading">
+      <div class="row">
+        <h3>Hello, <?php echo $_SESSION["login_user"]; ?></h3>
 			  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">
 			  	<form method="post" action="student.php" enctype="multipart/form-data">
 			  		<div class="input-group pull-right">
@@ -98,9 +124,9 @@ include("connect.php");
           <?php
           }
         }
-
         ?>
         </table>
+
           
 			</div>
       </div>

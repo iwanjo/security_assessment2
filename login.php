@@ -1,8 +1,7 @@
 <?php
 
+include('header.php');
 session_start();
-
-    include('header.php');
 ?>
 
 <!DOCTYPE html>
