@@ -1,16 +1,17 @@
 <?php
     require 'includes/sanitize.php';
     include("header.php");
-    include("connect.php"); 
+    include("connect.php");
+
 
 	if(isset($_POST['edit_book'])){
-        $id = sanitize(trim($_POST['id']));
+        $id = sanitize(trim($_GET['id']));
 		$title = sanitize(trim($_POST['title']));
         $author = sanitize(trim($_POST['author']));
         $date = sanitize(trim($_POST['date']));
         $bookCopies = sanitize(trim($_POST['bookCopies']));
         $category = sanitize(trim($_POST['category']));
-        $sql = "UPDATE `books` SET `BookTitle` = '$title', `Author` = '$author', `Date_Published` = '$date', `Available_Copies` = '$bookCopies', `Category` = '$category'" or die(mysqli_error());
+        $sql = "UPDATE books SET BookTitle = $title, Author = $author, Date_Published = $date, Available_Copies = $bookCopies, Category = $category WHERE BookID=$id" or die(mysqli_error());
 
         $query = mysqli_query($dbhandle, $sql);
 

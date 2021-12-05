@@ -10,6 +10,6 @@ echo "";
 
 // connect with database  
 $selected = mysqli_select_db($dbhandle, "security")  
-or die("Could not connect to database");  
+or die("Could not connect to database"); 
 
 ?>

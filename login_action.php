@@ -1,6 +1,8 @@
 <?php
 include("connect.php"); 
-$tbl_name="user_levels"; 
+$tbl_name="user_levels";
+
+session_start();
 
 if(isset($_POST['logIn_user'])){
      $email=$_POST['email']; 
@@ -20,7 +22,8 @@ if(isset($_POST['logIn_user'])){
           window.location='login.php';
           </script>";
           }else{
-          $row = mysqli_fetch_assoc($result); 
+          $row = mysqli_fetch_assoc($result);
+          $_SESSION['fullname']=$fetch['fullname'];
           if($row['role'] == 'Librarian'){
           header('location: librarian.php');
           }else if($row['role'] == 'Faculty' ){

@@ -7,7 +7,6 @@ include("header.php");
 include("connect.php"); 
 
 
-
 if (isset($_POST['del'])) {
   $id = sanitize(trim($_POST['id']));
 
@@ -30,7 +29,7 @@ if (isset($_POST['del'])) {
   
 <body>
 <ul>
-  <li><a class="active" href="#home">Home</a></li>
+  <li><a class="active" href="admin.php">Home</a></li>
   <li><a href="#news">Students</a></li>
   <li><a href="#news">Faculty</a></li>
   <li><a href="#news">Librarians</a></li>
@@ -51,12 +50,12 @@ if (isset($_POST['del'])) {
         <div class="row">
 		  	  <a href="add_book.php"><button class="btn btn-success col-lg-3 col-md-4 col-sm-11 col-xs-11 button" style="margin-left: 15px;margin-bottom: 5px"><span class="glyphicon glyphicon-plus-sign"></span> Add Book</button></a>
 			  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 pull-right">
-			  	<form method="post" action="bookstable.php" enctype="multipart/form-data">
+			  	<form method="post" action="admin.php" enctype="multipart/form-data">
 			  		<div class="input-group pull-right">
 				      <span class="input-group-addon">
-				        <button class="btn btn-success" name="search">Search</button> 
+				        <button type="submit" class="btn btn-success" name="search">Search</button> 
 				      </span>
-				      <input type="text" class="form-control" name="text">
+				      <input type="text" class="form-control" name="text" required>
 			      </div>
 			  	</form>
 			    
@@ -75,25 +74,40 @@ if (isset($_POST['del'])) {
         <?php
 
         if (isset($_POST['search'])) {
-          $text = sanitize(trim($_POST['text']));
-          $sql = "SELECT * FROM books where BookID = $text";
-          $query = mysqli_query($dbhandle, $sql);
+          $query = mysqli_query($dbhandle, "SELECT * FROM books where BookTitle like '%$_POST[text]%'");
 
-          while($row=mysqli_fetch_array($query)){?>
-            <tbody>  
-
-            <td><?php echo $row['BookTitle']; ?></td>
-            <td><?php echo $row['Author']; ?></td>
-            <td><?php echo $row['Date_Published']; ?></td>
-            <td><?php echo $row['Available_Copies']; ?></td>
-            <td><?php echo $row['Category']; ?></td>
-            <td><a class = "btn btn-danger delbook_id" value = "<?php echo $row['BookID']?>"><span class = "glyphicon glyphicon-remove"></span> Delete</a> <a value = "<?php echo $row['book_id']?>" class = "btn btn-warning ebook_id"><span class = "glyphicon glyphicon-edit"></span> Edit</a></td>
-
-          <?php
+          if (mysqli_num_rows($query)==0) {
+            echo "Sorry. Books not available. Try searching again!";
           }
+          else {
+            while($row = mysqli_fetch_array($query)){ ?>
+              <tbody class="table-elements">
+                <td><?php echo $row['BookTitle']; ?></td>
+                <td><?php echo $row['Author']; ?></td>
+                <td><?php echo $row['Date_Published']; ?></td>
+                <td><?php echo $row['Available_Copies']; ?></td>
+                <td><?php echo $row['Category']; ?></td>
+                <form method = "POST" action="admin.php">
+                  <input type='hidden' value="<?php echo $row['BookID']; ?>" name='id'>
+                  <td>
+                    <button name='del' type='submit' value='Delete' class='btn btn-warning' onclick='return Delete()'>DELETE</button>
+                  </td>
+                </form>
+  
+                <td>
+                  <form action="edit_book.php" method="POST">
+                  <input type='hidden' value="<?php echo $row['BookID']; ?>" name='id'>
+                  <td>
+                    <button name="edit" type="submit" class="edit-btn" >Edit</button>
+                  </form>
+                </td>
+              </tbody>
+            <?php
+            }
         }
+      }
       
-        else{
+      else{
           $sql2 ="SELECT * from books";
           $query2 = mysqli_query($dbhandle, $sql2);
           $counter = 1;
@@ -113,7 +127,9 @@ if (isset($_POST['del'])) {
 
               <td>
                 <form action="edit_book.php" method="POST">
-                  <button name="edit" type="submit" class="edit-btn">Edit</button>
+                <input type='hidden' value="<?php echo $row['BookID']; ?>" name='id'>
+                <td>
+                  <button name="edit" type="submit" class="edit-btn" >Edit</button>
                 </form>
               </td>
             </tbody>
